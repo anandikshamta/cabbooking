@@ -53,17 +53,18 @@ console.log(obj);
 					ka:ka
 				},
 				success: function(result) {
-console.log(result);
+console.log('success');
 					var data = $.parseJSON(result);
+console.log(data);
 					Book.SetBookingData(data);
 					$('#csp').val(data.dataenc);
+					$('#booking-id').val(data.data.book_id);
 					return true;
 				}
 			});
 			console.log('stepl success');
 			return true;
 		}
-
        // return true;
     });
 
@@ -77,7 +78,33 @@ console.log(result);
 	});
 
 	$(document).on('click', '.get-quote', function(e) {
-		$("#smartwizard").smartWizard("next");
+		var vehicleId = $(this).data('vehicle-id');
+		var obj = {};
+		obj.vehicleId = vehicleId;
+		obj.bookingId = $('#booking-id').val();
+
+		var base_url = $('#base_url_pop').val();
+		var ka = $('#ka').val();
+		var url = base_url+'/book_here';
+console.log('in get quote');
+
+		$.ajax({
+			url:url,
+			type:'POST',
+			data: {
+				signstep:2,
+				ajaxcall:1,
+				frmdata:obj,
+				ka:ka
+			},
+			success: function(result) {
+				var data = $.parseJSON(result);
+console.log(data);
+				$("#smartwizard").smartWizard("next");
+				return true;
+			}
+		});
+		return false;
 	});
 
 	$(document).on('click', '.get-user', function(e) {
@@ -87,14 +114,28 @@ console.log(result);
 		if(Book.ValidateUser(obj, error, error_close)) {
 			return false;
 		}
-		var response = sendRequest(obj, 3);
-		if(response) {
-console.log('in get user');
-console.log(response);
-			$('#user-id').val(response.data.user_id);
-			$("#smartwizard").smartWizard("next");
-			return true;
-		}
+		var base_url = $('#base_url_pop').val();
+		var ka = $('#ka').val();
+		var url = base_url+'/book_here';
+console.log('sendRequest');
+		$.ajax({
+			url:url,
+			type:'POST',
+			data: {
+				signstep:3,
+				ajaxcall:1,
+				frmdata:obj,
+				ka:ka
+			},
+			success: function(result) {
+console.log(result);
+				var data = $.parseJSON(result);
+console.log(data);
+				$('#user-id').val(data.data.user_id);
+				$("#smartwizard").smartWizard("next");
+				return true;
+			}
+		});
 		return false;
 	});
 
@@ -154,17 +195,6 @@ console.log(stepPosition);
 	SetBookingData: function(data) {
 console.log(data);
 		var data = data.data;
-		/*this.bookingData = {
-			from : data.from,
-			to : data.to,
-			extra: data.extra,
-			passengers: data.passengers,
-			meet_greet: data.meet_greet,
-			baby_seat: data.baby_seat,
-			booster_seat: data.booster_seat,
-			wheel_chair: data.wheel_chair,
-			pickup_date: data.pickup_date
-		};*/
 		$('.book-from').html(data.from);
 		$('.book-to').html(data.to);
 		$('.one-way-date').html(data.pickup_date);
@@ -250,27 +280,3 @@ console.log(data);
 		return errorStatus;
 	}
 };
-
-function sendRequest(dataObj, signstep) {
-	var base_url = $('#base_url_pop').val();
-	var ka = $('#ka').val();
-	var url = base_url+'/book_here';
-	data = dataObj;
-	$.ajax({
-		url:url,
-		type:'POST',
-		data: {
-			signstep:signstep,
-			ajaxcall:1,
-			frmdata:data,
-			ka:ka
-		},
-		success: function(result) {
-console.log('sendRequest');
-console.log(result);
-			var data = $.parseJSON(result);
-			return data;
-		}
-	});
-}
-

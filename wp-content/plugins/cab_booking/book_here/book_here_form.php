@@ -47,6 +47,7 @@ class BookHereForm
 					<input type="hidden" id="csp">
 					<input type="hidden" id="base_url_pop" value="<?php bloginfo('url')?>">
 					<input type="hidden" id="ka" value="<?php echo $_GET['ka'];?>">
+					<input type="hidden" id="booking-id"/>
 					<input type="hidden" id="user-id"/>
 				</div>
 			</div>
@@ -68,7 +69,7 @@ class BookHereForm
 		<form name="frm_step1" id="frm_step1">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-11  step1error"></div>
+				<div class="col-sm-11 step1error"></div>
 			</div>
 		  <div class="row">
 			<div class="col col-lg-4 card cardbox">
@@ -374,7 +375,7 @@ class BookHereForm
 					</div>
 					<div class="col-sm-1">
 						<a href="javascript:void(0);">
-							<button class="btn btn-success get-quote" data-id="<?php echo $val->id; ?>">Request Quote</button>
+							<button class="btn btn-success get-quote" data-vehicle-id="<?php echo $val->id; ?>">Request Quote</button>
 						</a>
 					</div>
 				</div>
@@ -391,10 +392,10 @@ class BookHereForm
 
 	function Step3() {
 	?>
-		<form name="frm_step3" id="frm_step3">
+		<form name="frm_step3" id="frm_step3" method="post">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-11  step3error"></div>
+				<div class="col-sm-11 step3error"></div>
 			</div>
 		  <div class="row">
 			<div class="col col-lg-6 card cardbox">
@@ -523,15 +524,25 @@ class BookHereForm
 	?>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-11  step4error"></div>
+				<div class="col-sm-11 step4error"></div>
 			</div>
-		  <div class="row">
-
-			<div class="col-lg-12 card">
-				Payment Confirmation
+			<div class="row">
+				<div class="col-lg-11 card cardbox">
+					<div class="row">
+						<div class="form-group">
+							Payment Confirmation
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input cashondelivery" type="radio"
+							 class="form-control" name="cashondelivery"
+							 id="cashondelivery" value="1"  checked />
+							<label class="form-check-label" for="cashondelivery">Cash On Delivery</label>
+						</div>
+					</div>
+				</div>
 			</div>
-
-		  </div>
 		</div>
 	<?php
 	}
