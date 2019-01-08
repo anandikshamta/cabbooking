@@ -20,9 +20,9 @@ class BookHere
 	{
 		global $wpdb;
 		$arr = array();
-		$param = $_POST['frmdata'];
-		$company = json_decode(CabDecrypt($_POST['ka']));
-		$company_id = $company->id;
+		$param = $_POST['frmdata']; 
+		//$company = json_decode(CabDecrypt($_POST['ka'])); 
+		$company_id = $param['company_id'];
 		$pickup_date = date("Y-m-d H:i:s",strtotime($param['pickup_date']." ".$param['pickup_date_hours'].":".$param['pickup_date_mins']));
 		$return_date = date("Y-m-d H:i:s",strtotime($param['return_date']." ".$param['return_date_hours'].":".$param['return_date_mins']));
 		$created_at = date("Y-m-d H:i:s");
@@ -74,15 +74,20 @@ class BookHere
 		$company = json_decode(CabDecrypt($_POST['ka']));
 
 		if( null == username_exists( $param['email'] ) ):
-			$password = '123456';
+			$password = wp_generate_password( 12, false );
 			$user_id = wp_create_user( $param['email'], $password, $param['email'] );
+			$display_name=$param['firstname']." ".$param['lastname'];
+			
 			wp_update_user(
 			  array(
 				'ID'          =>    $user_id,
-				'nickname'    =>    '',
-				'role'        =>    ''
+				'nickname'    =>    $display_name,
+				'role'        =>    'customer'
 			  )
 			);
+			$wpdb->query("update wp_users set display_name='".$display_name."' where ID=".$user_id);
+			$wpdb->query("update wp_cab_booking set user_id='".$user_id."' where ID=".$param['bookingId']);
+			
 			wp_mail( $email, 'Welcome to our Application!', 'Please signup  ' . $password );
 		else:
 			$user_id = username_exists( $param['email'] );

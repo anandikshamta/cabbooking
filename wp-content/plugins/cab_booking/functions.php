@@ -6,10 +6,10 @@ function EncHashPassword()
 function CabEncrypt($text)
 {
 	$password=EncHashPassword();
-	return openssl_encrypt($text,"AES-128-ECB",$password);
+	return base64_encode(openssl_encrypt($text,"AES-128-ECB",$password));
 }
-function CabDecrypt()
+function CabDecrypt($text)
 {
 	$password=EncHashPassword();
-	return openssl_decrypt($text,"AES-128-ECB",$password);
+	return openssl_decrypt(base64_decode($text),"AES-128-ECB",$password);
 }

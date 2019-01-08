@@ -65,6 +65,8 @@ class BookHereForm
 	}
 
 	function Step1() {
+		$company = json_decode(CabDecrypt($_REQUEST['ka'])); 
+		$company_id = $company->id;
 	?>
 		<form name="frm_step1" id="frm_step1">
 		<div class="container">
@@ -253,6 +255,8 @@ class BookHereForm
 			</div>
 		  </div>
 
+		  <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
+		  
 		</div>
 		</form>
 		<?php
@@ -364,7 +368,7 @@ class BookHereForm
 				?>
 				<div class="row">
 					<div class="col-sm-4">
-						<img src="<?php echo $val->photo; ?>" alt="Model Image" />
+						<img src="<?php echo $val->photo; ?>" width="200" alt="Model Image" />
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">

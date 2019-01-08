@@ -114,6 +114,8 @@ console.log(data);
 		if(Book.ValidateUser(obj, error, error_close)) {
 			return false;
 		}
+		obj.bookingId = $('#booking-id').val();
+		
 		var base_url = $('#base_url_pop').val();
 		var ka = $('#ka').val();
 		var url = base_url+'/book_here';

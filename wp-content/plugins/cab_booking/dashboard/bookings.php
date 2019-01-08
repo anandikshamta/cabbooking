@@ -40,6 +40,7 @@ class Bookingsinfo
 			<?php 
 				$k=1; 
 				foreach($result as $rs):
+				
 					$info='<label>From</label>:'.$rs->from_address."<br>";
 					$info.='<label>To</label>:'.$rs->to_address."<br>";
 					
@@ -50,10 +51,10 @@ class Bookingsinfo
 						echo '<td>'.$rs->id.'</td>';
 						echo '<td>'.$info.'</td>';
 						echo '<td>'.$date_info.'</td>';
-						echo '<td></td>';
-						echo '<td></td>';		
+						echo '<td>Pending</td>';
+						echo '<td>Cash on Delivery</td>';		
 						echo '<td></td>';								
-						echo '<td><a href="javascript:;" data-id="'.$rs->id.'" class="editit"><i class="fa fa-edit editcls">Booking Details</i></a>&nbsp;&nbsp;';
+						echo '<td><a href="javascript:;" data-id="'.$rs->id.'" class="editit btn btn-sm btn-success">Booking Details</a>&nbsp;&nbsp;';
 						//'<a href="javascript:;" class="deleteit" data-id="'.$rs->id.'"><i class="fa fa-trash trashcls"></i></a></td>';
 					echo '</tr>';
 					$k++;
