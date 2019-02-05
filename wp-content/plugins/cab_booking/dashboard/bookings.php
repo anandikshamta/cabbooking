@@ -15,6 +15,15 @@ class Bookingsinfo
 			return $display;
 		endif;
 	}
+
+	function Options($start=0,$end=0) {
+		$option='';
+		for($i=$start;$i<$end;$i++):
+			$option.='<option value="'.$i.'">'.$i.'</option>';
+		endfor;
+		return $option;
+	}
+
 	function ListIT()
 	{
 		global $wpdb;
@@ -141,15 +150,15 @@ class Bookingsinfo
 		global $wpdb;
 		echo $user_id = get_current_user_id();
 		if($_POST['id']):
-			$did=$_POST['id'];
-			$query="select * from wp_cab_booking where id=".$did;
-			$result=$wpdb->get_results($query);
-			$rs=$result[0];
+			$did = $_POST['id'];
+			$query = "select * from wp_cab_booking where id=".$did;
+			$result = $wpdb->get_results($query);
+			$rs = $result[0];
 		endif;
 
-		$vehiclequery="select * from wp_cab_vehicle where company_id=".$user_id;
-		$vehicle_result=$wpdb->get_results($vehiclequery);
-		$vehicle_result=$vehicle_result[0];
+		$vehiclequery = "select * from wp_cab_vehicle where company_id=".$user_id;
+		$vehicle_result = $wpdb->get_results($vehiclequery);
+		$vehicle_result = $vehicle_result[0];
 
 		$driverquery = "select * from wp_cab_drivers where company_id=".$user_id;
 		$driver_result = $wpdb->get_results($vehiclequery);
@@ -174,104 +183,297 @@ class Bookingsinfo
 					</div>
 
 					<div class="row">
-						<div class="col-sm-12">
+						<div class="col-sm-6">
 							<div class="form-group">
-								<label>Driver name<span class="md">*</span></label>
-								<input type="text" class="form-control" name="driver_name" id="driver_name" value="<?php echo $vehicle_result->driver_name; ?>">
+								<label>From<span class="md">*</span></label>
+								<input type="text" class="form-control" name="from" id="from"  value="<?php echo $rs->from; ?>" />
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
+
+						<div class="col-sm-6">
 							<div class="form-group">
-								<label>Password<span class="md">*</span></label>
-								<input type="password" class="form-control" name="pass" id="pass" >
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label>Gender</label>
-								<select class="form-control" name="gender" id="gender">
-									<?php
-										foreach($gender as $gk=>$gv):
-											if($gk==$rs->gender): $gslt="selected"; else: $gslt=""; endif;
-											echo '<option value="'.$gk.'" '.$gslt.'>'.$gv.'</option>';
-										endforeach
-									?>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label>Language</label>
-								<select class="form-control" name="language" id="language">
-									<?php
-										foreach($langarr as $lk=>$lv):
-											if($lk==$rs->language): $lslt="selected"; else: $lslt=""; endif;
-											echo '<option value="'.$lk.'" '.$lslt.'>'.$lv.'</option>';
-										endforeach
-									?>
-								</select>
+								<label>To<span class="md">*</span></label>
+								<input type="text" class="form-control" name="to" id="to" value="<?php echo $rs->to; ?>" />
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-sm-12">
+							<div class="form-group">
+								<label>Extra Stops</label>
+								<hr/>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label>Date & Time</label>
+								<hr/>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>One Way Date & Time</label>
+								<input type="text" class="form-control" name="to" id="to" value="<?php echo $rs->oneway_datetime; ?>" />
+								<select name="luggage" class="form-control" id="luggage">
+									<?php echo $this->Options(1,20);?>
+								</select>
+								<select name="luggage" class="form-control" id="luggage">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Estimate Time</label>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Return Date & Time</label>
+								<input type="text" class="form-control" name="to" id="to" value="<?php echo $rs->oneway_datetime; ?>" />
+								<select name="luggage" class="form-control" id="luggage">
+									<?php echo $this->Options(1,20);?>
+								</select>
+								<select name="luggage" class="form-control" id="luggage">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Estimate Distance</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label>Promotions</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Options</label>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Driver & Vehicle Info</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Return<span class="md">*</span></label>
+								<span class="md">Yes</span>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Driver</label>
+								<select name="driver" class="form-control" id="driver">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Passengers<span class="md">*</span></label>
+								<select name="passengers" class="form-control" id="passengers">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label>Vehicle</label>
-								<select class="form-control" name="vehicle" id="vehicle">
-									<?php
-										foreach($vehicle_result as $vs):
-											if($vs->id==$vehicle_result->vehicle): $vslt="selected"; else: $vslt=""; endif;
-											echo '<option value="'.$vs->id.'" '.$vslt.'>'.$vs->plate.'</option>';
-										endforeach;
-									?>
+								<select name="vehicle" class="form-control" id="vehicle">
+									<?php echo $this->Options(1,20);?>
 								</select>
 							</div>
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Luggage<span class="md">*</span></label>
+								<select name="passengers" class="form-control" id="passengers">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Return Driver</label>
+								<hr/>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Meet & Greet<span class="md">*</span></label>
+								<select name="meet_greet" class="form-control" id="meet_greet">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Driver</label>
+								<select name="return_driver" class="form-control" id="return_driver">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Baby Seat<span class="md">*</span></label>
+								<select name="meet_greet" class="form-control" id="meet_greet">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Vehicle</label>
+								<select name="return_driver" class="form-control" id="return_driver">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Boost Seat<span class="md">*</span></label>
+								<select name="boost_seat" class="form-control" id="boost_seat">
+									<?php echo $this->Options(1,50);?>
+								</select>
+								<label>Dogs<span class="md">*</span></label>
+								<select name="dogs" class="form-control" id="dogs">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Type Of Vehicle</label>
+								<select name="return_driver" class="form-control" id="return_driver">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Special Luggage<span class="md">*</span></label>
+								<select name="special_luggage" class="form-control" id="special_luggage">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								&nbsp;
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Waiting Time<span class="md">*</span></label>
+								<select name="waiting_hours" class="form-control" id="waiting_hours">
+									<?php echo $this->Options(1,50);?>
+								</select>
+								<select name="waiting_minutes" class="form-control" id="waiting_minutes">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								&nbsp;
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Flight Info</label>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Client Price</label>
+								<select name="waiting_minutes" class="form-control" id="waiting_minutes">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Remarks<span class="md">*</span></label>
+								<select name="passengers" class="form-control" id="passengers">
+									<?php echo $this->Options(1,50);?>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Meeting Point</label>
+								<select name="luggage" class="form-control" id="luggage">
+									<?php echo $this->Options(1,20);?>
+								</select>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="col-sm-4">
-
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label>Licence</label>
-								<input type="text" class="form-control" name="licence" id="licence" value="<?php echo $rs->licence; ?>">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label>Licence Expiry Date</label>
-								<input type="text" class="form-control datepicker" name="licence_exp_date" id="licence_exp_date" value="<?php echo $rs->licence_exp_date; ?>">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label>PCO Licence</label>
-								<input type="text" class="form-control" name="pco_licence" id="pco_licence" value="<?php echo $vehicle_result->pco_ln; ?>">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<label>PCO Licence Expiry Date</label>
-								<input type="text" class="form-control" name="pco_licence_exp_date datepicker" id="pco_licence_exp_date" value="<?php echo $vehicle_result->pco_exp_date; ?>">
-							</div>
-						</div>
-					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
@@ -304,8 +506,6 @@ class Bookingsinfo
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 				<div class="col-sm-4">
 					<div class="row">
@@ -364,15 +564,8 @@ class Bookingsinfo
 							</div>
 						</div>
 					</div>
-
-
 				</div>
-
 			</div>
-
-
-
-
 
 			<div class="row">
 				<div class="col-lg-12">&nbsp;</div>
@@ -390,5 +583,4 @@ class Bookingsinfo
 		</form>
 		<?php
 	}
-
 }
