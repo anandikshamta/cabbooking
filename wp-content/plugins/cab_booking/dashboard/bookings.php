@@ -16,7 +16,7 @@ class Bookingsinfo
 		endif;
 	}
 
-	function Options($start=0, $end=0 , $selected) {
+	function Options($start=0, $end=0 , $selected=NULL) {
 		$option='';
 		for($i=$start;$i<$end;$i++):
 			$option .= '<option value="'.$i.'" ' . (($selected == $i) ? ' selected': '').'>'.$i.'</option>';
@@ -96,13 +96,35 @@ class Bookingsinfo
 		endif;
 
 		if($param->did):
-			$vehiclequery="select user_id from wp_cab_vehicle where id=".$param->did;
-			$vehicle_result=$wpdb->get_results($vehiclequery);
+			$bookingqry = "select user_id from wp_cab_booking where id=".$param->did;
+			$booking_result = $wpdb->get_results($bookingqry);
 
-			$wpdb->query("update wp_users set display_name='".md5($param->pass)."' where ID=".$user_id);
-			$query="update `wp_cab_drivers` set `driver_name`='".$param->driver_name."',`password`='".CabEncrypt($param->pass)."',`gender`='".$param->gender."',`language`='".$param->language."',`vehicle`='".$param->vehicle."',`license`='".$param->license."',`license_expiry_date`='".$param->license_expiry_date."',`pco_licence`='".$param->pco_licence."',`pco_licence_expiry_date`='".$param->pco_licence_expiry_date."',`phone`='".$param->phone."',`skype`='".$param->skype."',`additional_info`='".$param->additional_info."',`photo`='".$param->photo."',`company_name`='".$param->company_name."',`vat`='".$param->vat."',`driver_company_address`='".$param->driver_company_address."',`tax`='".$param->tax."',`partner_driver`='".$param->partner_driver."',`commision`='".$param->commision."',,`modified_at`='".$created_at."' where id=".$param->did;
+			$vehiclequery = "select user_id from wp_cab_vehicle where id=".$param->vehicle;
+			$vehicle_result = $wpdb->get_results($vehiclequery);
+
+			//$wpdb->query("update wp_users set display_name='".md5($param->pass)."' where ID=".$user_id);
+
+			$query = " update `wp_cab_booking` set `company_id` = '".$cuser_id."',
+						`user_id` = '".$user_id."',
+						`from_address` = '".$param->from."',
+						`to_address` = '".$param->to."',
+						`extra` = '".$param->extra."',
+						`passenger` = '".$param->passengers."',
+						`luggage`= '".$param->luggage."',
+						`way` = '".$param->way."',
+						`pickup_date` = '".$pickup_date."',
+						`return_date` = '".$return_date."',
+						`meet_greet` = '".$param->meet_greet."',
+						`baby_seat` = '".$param->baby_seat."',
+						`booster` = '".$param->booster_seat."',
+						`wheelcair` = '".$param->wheel_chair."',
+						`promo_code` = '".$param->promo_code."',
+						`driver_id` = '".$param->driver."',
+						`vehicle_id` = '".$param->vehicle."',
+						`return_driver_id` = '".$param->return_driver."',
+						`return_vehicle_id` = '" . $param->return_vehicle . "',
+						`created_date` = '".$created_at."' where id = '".$param->did."' ";
 			$wpdb->query($query);
-
 			$msg="bookings updated successfully";
 		else:
 			 if( null == username_exists( $param->email ) ):
@@ -118,15 +140,10 @@ class Bookingsinfo
 				$wpdb->query("update wp_users set display_name='".$display_name."' where ID=".$user_id);
 				wp_mail( $email, 'Welcome to our Application!', 'Please signup  ' . $password );
 
-				$query="insert into `wp_cab_drivers`(`company_id`,`user_id`,`driver_name`,`password`,`gender`,`language`,`vehicle`,`license`,`license_expiry_date`,`pco_licence`,`pco_licence_expiry_date`,`email`,`phone`,`skype`,`additional_info`,`photo`,`company_name`,`vat`,`driver_company_address`,`tax`,`partner_driver`,`commision`,`created_at`) values
-					('".$cuser_id."','".$user_id."','".$param->driver_name."','".CabEncrypt($param->pass)."','".$param->gender."','".$param->language."','".$param->vehicle."','".$param->licence."','".$param->licence_exp_date."','".$param->pco_licence."','".$param->pco_licence_exp_date."','".$param->email."','".$param->phone."','".$param->skype."','".$param->additional_info."','".$param->photo."','".$param->company_name."','".$param->vat."','".$param->driver_company_address."','".$param->tax."','".$param->partner_driver."','".$param->commission."','".$created_at."')";
-				$wpdb->query($query);
-
-
 				$query="insert into `wp_cab_booking`(`company_id`, `user_id`, `from_address`, `to_address`, `extra`, `passenger`, `luggage`, `way`, `pickup_date`, `return_date`,
-					`meet_greet`, `baby_seat`, `booster`, `wheelcair`, `promo_code`, `created_date`) values
+					`meet_greet`, `baby_seat`, `booster`, `wheelcair`, `promo_code`, `driver_id`, `vehicle_id`, `return_driver_id`, `return_vehicle_id`, `created_date`) values
 					('".$cuser_id."', '".$user_id."', '".$param->from."', '".$param->to."', '".$param->extra."', '".$param->passengers."','".$param->luggage."','".$param->way."',
-						'".$pickup_date."','".$return_date."','".$param->meet_greet."','".$param->baby_seat."','".$param->booster_seat."','".$param->wheel_chair."','".$param->promo_code."')";
+						'".$pickup_date."','".$return_date."','".$param->meet_greet."','".$param->baby_seat."','".$param->booster_seat."','".$param->wheel_chair."','".$param->promo_code."', '".$param->driver."', '".$param->vehicle."', '".$param->return_driver."', '".$param->return_vehicle."', '".$created_at."')";
 				$wpdb->query($query);
 
 				$msg="bookings created successfully";
@@ -164,11 +181,11 @@ class Bookingsinfo
 
 		$vehiclequery = "select * from wp_cab_vehicle where company_id=".$user_id;
 		$vehicle_result = $wpdb->get_results($vehiclequery);
-		$vehicle_result = $vehicle_result[0];
+		//$vehicle_result = $vehicle_result[0];
 
 		$driverquery = "select * from wp_cab_drivers where company_id=".$user_id;
 		$driver_result = $wpdb->get_results($vehiclequery);
-		$driver_result = $driver_result[0];
+		//$driver_result = $driver_result[0];
 
 		$langarr = array("gb"=>"English","es"=>"Español","nl"=>"Nederlands","de"=>"Deutsch","fr"=>"Français","it"=>"Italiano","pt"=>"Portugues","ru"=>"Русский","no"=>"norsk");
 		$gender = array("male"=>"Male","female"=>"Female");
