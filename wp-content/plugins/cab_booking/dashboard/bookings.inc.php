@@ -226,13 +226,13 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Driver</label>
-							<select name="return_driver" class="form-control" id="return_driver">
-								<option value="">Select</option>
-								<?php foreach($driver_result as $drivers): ?>
-								<option value='<?php echo $drivers->id; ?>' <?php echo (($rs->return_driver_id == $drivers->id) ? ' selected': ''); ?>>
-									<?php echo $drivers->driver_name; ?>
+							<select name="driver" class="form-control" id="driver">
+								<option value="">Select Driver</option>
+								<?php foreach($driver_result as $driver): ?>
+								<option value='<?php echo $driver->id; ?>' <?php echo (($rs->return_driver_id == $driver->id) ? ' selected': ''); ?>>
+									<?php echo $driver->driver_name; ?>
 								</option>
-								<?php endfor; ?>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -246,12 +246,16 @@
 							</select>
 						</div>
 					</div>
-
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Vehicle</label>
 							<select name="vehicle" class="form-control" id="vehicle">
-								<?php echo $this->Options(1,20);?>
+								<option value="">Select Vehicle</option>
+								<?php foreach($vehicle_result as $vehicle): ?>
+								<option value='<?php echo $vehicle->id; ?>' <?php echo (($rs->return_vehicle_id == $vehicle->id) ? ' selected': ''); ?>>
+									<?php echo $vehicle->brand; ?>
+								</option>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -265,7 +269,6 @@
 							</select>
 						</div>
 					</div>
-
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Return Driver</label>
@@ -286,9 +289,13 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Driver</label>
-							driver names
 							<select name="return_driver" class="form-control" id="return_driver">
-								<?php echo $this->Options(1, 20);?>
+								<option value="">Select Driver</option>
+								<?php foreach($driver_result as $driver): ?>
+								<option value='<?php echo $driver->id; ?>' <?php echo (($rs->return_driver_id == $driver->id) ? ' selected': ''); ?>>
+									<?php echo $driver->driver_name; ?>
+								</option>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -306,9 +313,13 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Vehicle</label>
-							vehicle types
-							<select name="return_driver" class="form-control" id="return_driver">
-								<?php echo $this->Options(1,20, $rs->baby_seat);?>
+							<select name="return_vehicle" class="form-control" id="return_vehicle">
+								<option value="">Select Vehicle</option>
+								<?php foreach($vehicle_result as $vehicle): ?>
+								<option value='<?php echo $vehicle->id; ?>' <?php echo (($rs->return_vehicle_id == $vehicle->id) ? ' selected': ''); ?>>
+									<?php echo $vehicle->brand; ?>
+								</option>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -326,12 +337,16 @@
 							</select>
 						</div>
 					</div>
-
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Type Of Vehicle</label>
-							<select name="return_driver" class="form-control" id="return_driver">
-								<?php echo $this->Options(1,20);?>
+							<select name="vehicle_type" class="form-control" id="vehicle_type">
+								<option value="">Select Vehicle Type</option>
+								<?php foreach($vehicle_result as $vehicle): ?>
+								<option value='<?php echo $vehicle->id; ?>' <?php echo (($rs->return_vehicle_id == $vehicle->id) ? ' selected': ''); ?>>
+									<?php echo $vehicle->brand; ?>
+								</option>
+								<?php endforeach; ?>
 							</select>
 						</div>
 					</div>
@@ -375,7 +390,6 @@
 							<label>Flight Info</label>
 						</div>
 					</div>
-
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Client Price</label>
@@ -394,7 +408,6 @@
 							</select>
 						</div>
 					</div>
-
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Meeting Point</label>

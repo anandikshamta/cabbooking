@@ -184,7 +184,7 @@ class Bookingsinfo
 		//$vehicle_result = $vehicle_result[0];
 
 		$driverquery = "select * from wp_cab_drivers where company_id=".$user_id;
-		$driver_result = $wpdb->get_results($vehiclequery);
+		$driver_result = $wpdb->get_results($driverquery);
 		//$driver_result = $driver_result[0];
 
 		$langarr = array("gb"=>"English","es"=>"Español","nl"=>"Nederlands","de"=>"Deutsch","fr"=>"Français","it"=>"Italiano","pt"=>"Portugues","ru"=>"Русский","no"=>"norsk");
