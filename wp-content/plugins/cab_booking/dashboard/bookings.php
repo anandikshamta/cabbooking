@@ -123,7 +123,11 @@ class Bookingsinfo
 						`vehicle_id` = '".$param->vehicle."',
 						`return_driver_id` = '".$param->return_driver."',
 						`return_vehicle_id` = '" . $param->return_vehicle . "',
-						`created_date` = '".$created_at."' where id = '".$param->did."' ";
+						`client_price` = '" . $param->client_price . "',
+						`remarks` = '" . $param->remarks . "',
+						`meeting_point` = '" . $param->meeting_point . "',
+						`created_date` = '".$created_at."'
+						where id = '".$param->did."' ";
 			$wpdb->query($query);
 			$msg="bookings updated successfully";
 		else:
@@ -141,9 +145,9 @@ class Bookingsinfo
 				wp_mail( $email, 'Welcome to our Application!', 'Please signup  ' . $password );
 
 				$query="insert into `wp_cab_booking`(`company_id`, `user_id`, `from_address`, `to_address`, `extra`, `passenger`, `luggage`, `way`, `pickup_date`, `return_date`,
-					`meet_greet`, `baby_seat`, `booster`, `wheelcair`, `promo_code`, `driver_id`, `vehicle_id`, `return_driver_id`, `return_vehicle_id`, `created_date`) values
+					`meet_greet`, `baby_seat`, `booster`, `wheelcair`, `promo_code`, `driver_id`, `vehicle_id`, `return_driver_id`, `return_vehicle_id`, `client_price`, `remarks`, `meeting_point`, `created_date`) values
 					('".$cuser_id."', '".$user_id."', '".$param->from."', '".$param->to."', '".$param->extra."', '".$param->passengers."','".$param->luggage."','".$param->way."',
-						'".$pickup_date."','".$return_date."','".$param->meet_greet."','".$param->baby_seat."','".$param->booster_seat."','".$param->wheel_chair."','".$param->promo_code."', '".$param->driver."', '".$param->vehicle."', '".$param->return_driver."', '".$param->return_vehicle."', '".$created_at."')";
+						'".$pickup_date."','".$return_date."','".$param->meet_greet."','".$param->baby_seat."','".$param->booster_seat."','".$param->wheel_chair."','".$param->promo_code."', '".$param->driver."', '".$param->vehicle."', '".$param->return_driver."', '".$param->return_vehicle."', '".$param->client_price."', '".$param->remarks."', '".$param->meeting_point."', '".$created_at."')";
 				$wpdb->query($query);
 
 				$msg="bookings created successfully";
