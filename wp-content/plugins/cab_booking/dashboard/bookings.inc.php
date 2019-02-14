@@ -50,16 +50,16 @@
 					<div class="form-group">
 						<label>One Way Date & Time</label>
 						<?php
-							$pickup_date = $rs->pickup_date;
-							$pickup_date = '';
+							echo $pickup_date = $rs->pickup_date;
 							$pickup_date_hours = '';
 							$pickup_date_mins = '';
-							if($pickup_date != '00-00-0000 00:00:00'):
-
+							if($pickup_date != '0000-00-00 00:00:00'):
 								$oneway_strtotime = strtotime($rs->pickup_date);
 								$pickup_date = date("d/m/y", $oneway_strtotime);
 								$pickup_date_hours = date('H', $oneway_strtotime);
 								$pickup_date_mins = date('i', $oneway_strtotime);
+							else :
+								$pickup_date = '';
 							endif;
 						?>
 						<input type="text" class="form-control datepicker" name="pickup_date" id="pickup_date" value="<?php echo $pickup_date; ?>" />
@@ -80,15 +80,16 @@
 						<?php
 							$return_date = $rs->return_date;
 							$returnStatus = 'No';
-							$return_date = '';
 							$return_date_hours = '';
 							$return_date_mins = '';
-							if($return_date != '00-00-0000 00:00:00'):
+							if($return_date != '0000-00-00 00:00:00'):
 								$returnStatus = 'Yes';
 								$return_strtotime = strtotime($rs->return_date);
 								$return_date = date("d/m/y", $return_strtotime);
 								$return_date_hours = date('H', $return_strtotime);
 								$return_date_mins = date('i', $return_strtotime);
+							else:
+								$return_date = '';
 							endif;
 						?>
 						<input type="text" class="form-control datepicker" name="return_date" id="return_date" value="<?php echo $return_date; ?>" />
@@ -248,7 +249,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Passengers</label>
-							<input type="text" name="passengers" id="passengers"
+							<input type="text" name="passengers" id="passengers" class="form-control"
 							value="<?php echo $rs->passenger; ?>" />
 						</div>
 					</div>
@@ -270,7 +271,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Luggage</label>
-							<input type="text" name="luggage" id="luggage"
+							<input type="text" name="luggage" id="luggage" class="form-control"
 							value="<?php echo $rs->luggage; ?>" />
 						</div>
 					</div>
@@ -337,7 +338,7 @@
 								<?php echo $this->Options(0, 50, $rs->booster);?>
 							</select>
 							<label>Dogs</label>
-							<input type="text" name="dogs" id="dogs"
+							<input type="text" name="dogs" id="dogs" class="form-control"
 							value="<?php echo $rs->dogs; ?>" />
 						</div>
 					</div>
@@ -359,7 +360,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Special Luggage</label>
-							<input type="text" name="special_luggage" id="special_luggage"
+							<input type="text" name="special_luggage" id="special_luggage" class="form-control"
 							value="<?php echo $rs->special_luggage; ?>" />
 						</div>
 					</div>
@@ -373,9 +374,9 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Waiting Time</label>
-							<input type="text" name="waiting_hours" id="waiting_hours"
+							<input type="text" name="waiting_hours" id="waiting_hours" class="form-control"
 							value="<?php echo $rs->waiting_hours; ?>" /> Hours
-							<input type="text" name="waiting_minutes" id="waiting_minutes"
+							<input type="text" name="waiting_minutes" id="waiting_minutes" class="form-control"
 							value="<?php echo $rs->waiting_minutes; ?>" /> Minutes
 						</div>
 					</div>
@@ -394,7 +395,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Client Price</label>
-							<input type="text" name="client_price" id="client_price"
+							<input type="text" name="client_price" id="client_price" class="form-control"
 							value="<?php echo $rs->client_price; ?>" />
 						</div>
 					</div>
@@ -403,13 +404,13 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Remarks</label>
-							<textarea name="remarks" id="remarks" cols="20" rows="10"></textarea>
+							<textarea name="remarks" id="remarks" cols="20" rows="10" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label>Meeting Point</label>
-							<textarea name="meeting_point" id="meeting_point" cols="20" rows="10"></textarea>
+							<textarea name="meeting_point" id="meeting_point" cols="20" rows="10" class="form-control"></textarea>
 						</div>
 					</div>
 				</div>
