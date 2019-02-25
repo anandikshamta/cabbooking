@@ -2315,3 +2315,11 @@ table.dataTable thead td {
   border-bottom: 2px solid #30ACA4;
   width: 100%;
 }
+
+/* pricing meta data */
+.jsgrid-grid-body{
+  height: auto !important;
+}
+#radiusGrid{
+  font-size: 12px;
+}

@@ -11,7 +11,7 @@
                 &copy; Copyright <strong>Cab booking</strong>. All Rights Reserved
               </p>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -25,11 +25,11 @@
 	if(is_front_page()):
 ?>
   <!-- JavaScript Libraries -->
-	
-  
+
+
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/lib/venobox/venobox.min.js"></script>
-  
+
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/lib/knob/jquery.knob.js"></script>
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/lib/wow/wow.min.js"></script>
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/lib/parallax/parallax.js"></script>
@@ -43,14 +43,16 @@
 
 
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/js/main.js"></script>
-  
-	<?php 
+
+	<?php
 	endif;
 	?>
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/js/jquery.tabledit.js"></script>
+  <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/js/jsgrid.js"></script>
 	<?php
 	wp_footer(); ?>
-  
+
 </body>
 
 

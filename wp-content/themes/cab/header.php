@@ -4,7 +4,7 @@
  *
  * Displays all of the head element and everything up until the "site-content" div.
  *
- * @package WordPress 
+ * @package WordPress
  * @subpackage cab
  * @since cab
  */
@@ -40,26 +40,27 @@
   <!-- Nivo Slider Theme -->
   <link href="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/css/nivo-slider-theme.css" rel="stylesheet">
   <?php endif;?>
-  
+
   <!-- Main Stylesheet File -->
   <link href="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/css/style.css" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/css/responsive.css" rel="stylesheet">
-  
-  <link rel="stylesheet" href="<?php echo plugins_url();?>/cab_booking/inc/css/book_here.css" >
+
+  <link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/css/jsgrid.min.css" >
+  <link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/css/jsgrid-theme.min.css" >
 
   <?php wp_head(); ?>
   <script>var $=jQuery;</script>
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example">
-	
-	
+
+
 		<div id="loadstick" class="row">
 			<div class="col-lg-2 text-left">&nbsp;</div>
 			<div class="col-lg-4 text-left">
-				<?php 
+				<?php
 					if ( is_user_logged_in() ): $redirect=get_bloginfo('url')."/cabbooking/?action=bookings"; else:  $redirect=""; endif;
 				?>
 				<a class="sticky-logo" href="<?php echo $redirect;?>"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/inc/img/logo.png" alt="" title=""></a>
@@ -74,23 +75,23 @@
 					else:
 						$redirect=get_bloginfo('url')."/cabbooking/?action=bookings";
 						$args = array(
-							'redirect' => $redirect, 
+							'redirect' => $redirect,
 							'form_id' => 'loginform-dash',
 							'label_username' => __( 'Email' ),
 							'label_password' => __( 'Password' ),
 							'label_log_in' => __( 'Sign in' ),
 							'remember' => false
-						);	
+						);
 						wp_login_form($args);
-					endif;	
+					endif;
 					echo '</div></div>';
-					echo '<div class="row"><div class="col-md-12 col-sm-12 language_header">'.do_shortcode('[gtranslate]').'</div></div>'; 
-				?> 
+					echo '<div class="row"><div class="col-md-12 col-sm-12 language_header">'.do_shortcode('[gtranslate]').'</div></div>';
+				?>
 			</div>
 		</div>
 <?php
-	if (! is_user_logged_in() ):	
-?>	
+	if (! is_user_logged_in() ):
+?>
   <header>
     <!-- header-area start -->
     <div id="sticker" class="header-area" >
@@ -109,15 +110,15 @@
 										<span class="icon-bar"></span>
 									</button>
                 <!-- Brand -->
-                
+
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
-                <?php 
-					
+                <?php
+
 					wp_nav_menu( array( 'container_class' => false, 'theme_location' => 'my-custom-menu' , 'menu' => 'topmenu' , 'menu_class' => 'nav navbar-nav navbar-right','container' => 'ul') );
 				?>
-				
+
               </div>
               <!-- navbar-collapse -->
             </nav>
@@ -129,6 +130,5 @@
     <!-- header-area end -->
   </header>
   <!-- header end -->
-<?php endif;?>  
+<?php endif;?>
 
-	
