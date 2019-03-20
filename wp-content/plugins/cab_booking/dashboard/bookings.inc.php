@@ -259,7 +259,7 @@
 							<select name="vehicle" class="" id="vehicle">
 								<option value="">Select Vehicle</option>
 								<?php foreach($vehicle_result as $vehicle): ?>
-								<option value='<?php echo $vehicle->id; ?>' <?php echo (($rs->return_vehicle_id == $vehicle->id) ? ' selected': ''); ?>>
+								<option value='<?php echo $vehicle->id; ?>' <?php echo (($rs->vehicle_id == $vehicle->id) ? ' selected': ''); ?>>
 									<?php echo $vehicle->brand; ?>
 								</option>
 								<?php endforeach; ?>
